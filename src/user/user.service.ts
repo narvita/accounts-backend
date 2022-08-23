@@ -10,17 +10,10 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findAll() {
-    const users = this.userModel.find();
-    // console.log(users, 'users');
-    return users;
+    return this.userModel.find();
   }
 
-  async findOne(id: number): Promise<CreateUserDto> {
-    console.log('hesa', id);
-    const user = await this.userModel
-      .findOne({ _id: new mongoose.Types.ObjectId('630357351374044f27a81779') })
-      .exec();
-    console.log(user, 'user');
-    return user[0];
+  async findOne(id: number): Promise<UserDocument> {
+    return await this.userModel.findOne({ userId: id });
   }
 }
